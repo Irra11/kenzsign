@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kenz Shop</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230072b5'/%3E%3Ctext x='32' y='44' font-size='36' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3EK%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Hanuman:wght@400;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#b42929;--deep:#04355a;--cyan:#d40000;--bg:#eef3f8;--fg:#0f2438;--mut:#64748b;--line:#e3eaf2;--card:#fff}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Hanuman',sans-serif}
+body{background:var(--bg);color:var(--fg);min-height:100vh;display:flex;flex-direction:column;padding-top:68px;position:relative}
+body:before{content:'';position:absolute;inset:0 0 auto 0;height:380px;background:linear-gradient(160deg,var(--deep),var(--blue) 60%,var(--cyan));z-index:0}
+body:after{content:'';position:absolute;inset:0 0 auto 0;height:380px;background:radial-gradient(circle at 85% 10%,rgba(255,255,255,.18),transparent 45%);z-index:0}
+
+/* navbar */
+.navbar{position:fixed;inset:0 0 auto 0;height:60px;display:flex;justify-content:center;align-items:center;background:rgba(4,53,90,.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);z-index:1000;border-bottom:1px solid rgba(255,255,255,.12)}
+.nav-logo{font-weight:800;font-size:1.15rem;color:#fff;letter-spacing:.3px}
+.nav-btn{position:absolute;top:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;cursor:pointer;border:0;background:rgba(255,255,255,.12);border-radius:12px}
+#menuBtn{left:12px}
+#langBtn{right:12px;font-size:13px;font-weight:700;width:auto;padding:0 14px}
+
+/* side menu */
+.side{position:fixed;top:0;left:-300px;width:285px;height:100%;background:#fff;z-index:2000;transition:left .3s ease;box-shadow:12px 0 40px rgba(4,53,90,.15);padding:26px 18px}
+.side.on{left:0}.ovl{position:fixed;inset:0;background:rgba(4,30,50,.45);backdrop-filter:blur(3px);z-index:1999;display:none}.ovl.on{display:block}
+.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-weight:800;font-size:18px;color:var(--deep)}
+.ml{display:flex;flex-direction:column;gap:8px}
+.mi{padding:14px 16px;display:flex;align-items:center;gap:14px;color:var(--fg);font-weight:600;text-decoration:none;background:#f5f8fb;border-radius:14px;cursor:pointer}
+.mi:active{background:#e8f0f7}
+
+/* layout */
+.wrap{flex:1;display:flex;justify-content:center;align-items:flex-start;padding:22px 16px 10px;position:relative;z-index:1}
+.card{background:var(--card);width:100%;max-width:460px;border-radius:28px;box-shadow:0 30px 70px rgba(4,53,90,.22),0 2px 0 rgba(255,255,255,.6) inset;position:relative;text-align:center;overflow:hidden}
+.hero{padding:34px 24px 26px;background:linear-gradient(150deg,var(--deep),var(--blue));color:#fff;position:relative}
+.hero:after{content:'';position:absolute;right:-50px;top:-50px;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.08)}
+.icon{width:96px;height:96px;background:#fff;border-radius:26px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(0,0,0,.28);overflow:hidden;color:var(--blue);font-size:40px;font-weight:800;position:relative;z-index:1}
+.icon img{width:100%;height:100%;object-fit:cover;display:block}
+.hero h2{font-weight:800;font-size:20px;letter-spacing:.6px;position:relative;z-index:1}
+.hero p{color:rgba(255,255,255,.78);font-size:13px;margin-top:4px;position:relative;z-index:1}
+.body{padding:22px 22px 26px}
+
+.feat{margin:0 0 18px;font-size:13.5px;text-align:left;color:#334155;display:grid;gap:10px}
+.feat div{display:flex;align-items:center;gap:12px;background:#f5f9fc;border:1px solid var(--line);border-radius:14px;padding:11px 14px}
+.feat i{color:var(--blue);width:18px;text-align:center}
+.amt{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#e8f4fc,#e6fafd);border-radius:18px;padding:14px 20px;border:1px solid #cfe6f5;margin-bottom:22px;color:var(--deep)}
+.amt b{font-size:30px;font-weight:800;color:var(--blue)}
+.fl{text-align:left;font-size:12px;font-weight:700;color:#475569;margin-bottom:8px;display:block}
+.in{position:relative;margin-bottom:14px}.in i{position:absolute;left:16px;top:18px;color:#94a3b8}
+.input{width:100%;padding:16px 14px 16px 44px;border-radius:14px;border:1.5px solid var(--line);background:#f8fafc;outline:0;font-size:15px;transition:.2s;color:var(--fg)}
+.input:focus{border-color:var(--cyan);background:#fff;box-shadow:0 0 0 4px rgba(0,188,212,.14)}
+.term{background:#0b1b2b;border-radius:14px;padding:13px 15px;text-align:left;margin-bottom:12px;border:1px solid #1d3349}
+.term small{font-size:10px;color:#7f93a8;font-weight:700;letter-spacing:1px}
+.term div{color:#cbd5e1;font:12.5px 'Courier New',monospace;margin-top:5px;word-break:break-all}
+.hint{font-size:13px;line-height:1.5;text-align:left;margin:0 2px 16px;min-height:19px}
+.hint.ok{color:#15803d}.hint.warn{color:#b45309}.hint.bad{color:#dc2626}
+.getudid{display:flex;align-items:center;justify-content:center;gap:10px;background:#eef7fd;color:var(--blue);text-decoration:none;padding:14px;border-radius:14px;font-size:13.5px;font-weight:700;margin-bottom:8px;border:1.5px dashed #7fbbe0}
+.safari{font-size:12px;color:var(--mut);margin-bottom:20px;text-align:left;line-height:1.5}
+.terms{display:flex;gap:12px;align-items:flex-start;text-align:left;font-size:13px;color:var(--mut);margin-bottom:22px;cursor:pointer;user-select:none;line-height:1.5}
+.terms input{width:22px;height:22px;flex:none;accent-color:var(--blue)}
+.btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;padding:16px;border:0;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;box-shadow:0 12px 24px rgba(0,114,181,.28);margin-top:10px;transition:transform .15s}
+.btn:active{transform:scale(.98)}.btn.off{opacity:.45;pointer-events:none;box-shadow:none}
+.btn.ghost{background:#eef2f6;color:#475569;box-shadow:none}.btn.green{background:linear-gradient(135deg,#16a34a,#22c55e);box-shadow:0 12px 24px rgba(22,163,74,.25)}
+
+/* modals */
+.modal{display:none;position:fixed;inset:0;background:rgba(4,30,50,.6);backdrop-filter:blur(8px);z-index:3000;justify-content:center;align-items:center;padding:20px;overflow:auto}
+.modal.on{display:flex}
+.mc{background:#fff;border-radius:26px;padding:30px 22px;width:100%;max-width:410px;text-align:center;position:relative;margin:auto;box-shadow:0 30px 80px rgba(0,0,0,.3)}
+.x{position:absolute;top:14px;right:14px;border:0;background:#eef2f6;color:#64748b;width:34px;height:34px;border-radius:50%;cursor:pointer}
+.mc h3{margin-bottom:8px;color:var(--deep)}.mc p.s{color:var(--mut);font-size:14px;margin-bottom:14px;line-height:1.5}
+.qr{width:100%;max-width:300px;border-radius:20px;border:1px solid var(--line);display:block;margin:0 auto 14px;padding:6px;background:#fff}
+.loader{border:4px solid #e5edf4;border-top-color:var(--blue);border-radius:50%;width:38px;height:38px;animation:sp 1s linear infinite;margin:30px auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+.badge{background:#fff7dc;color:#8a6508;padding:11px 14px;border-radius:12px;font-size:13px;font-weight:700;margin-top:10px}
+.badge.ok{background:#dcfce7;color:#15803d}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:9px 12px;font-size:14px;text-align:left;margin:14px 0;background:#f5f9fc;border:1px solid var(--line);border-radius:14px;padding:14px}
+.kv span:nth-child(odd){color:var(--mut)}.kv span:nth-child(even){font-weight:700;word-break:break-all;text-align:right}
+.pw{display:flex;gap:8px;align-items:center;background:#f5f9fc;border:1.5px dashed #b6c9da;border-radius:14px;padding:11px 14px;margin:6px 0}
+.pw code{flex:1;font:700 18px 'Courier New',monospace;text-align:left}.pw button{border:0;background:#dbeefb;color:var(--blue);border-radius:10px;padding:8px 12px;font-weight:700;cursor:pointer}
+.note{background:#eaf3ff;color:#1d4ed8;border-radius:12px;padding:10px 13px;font-size:13px;line-height:1.5;margin:10px 0;text-align:left}
+.ord{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 0;border-top:1px solid #eef2f6;cursor:pointer;text-align:left}
+.ord:first-child{border:0}.ord small{display:block;color:var(--mut);font:12px 'Courier New',monospace;word-break:break-all}
+.ord em{font-style:normal;font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap}
+.foot{padding:26px 20px;text-align:center;color:var(--mut);font-size:13px;position:relative;z-index:1}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <button class="nav-btn" id="menuBtn" type="button"><i class="fas fa-bars-staggered"></i></button>
+  <div class="nav-logo" id="brand">Kenz Shop</div>
+  <button class="nav-btn" id="langBtn" type="button">English</button>
+</nav>
+<div class="ovl" id="ovl"></div>
+<aside class="side" id="side">
+  <div class="mh"><span>Menu</span><i class="fas fa-times" id="menuX" style="cursor:pointer;color:#888"></i></div>
+  <div class="ml">
+    <div class="mi hide" id="mOrders"><i class="fas fa-receipt" style="color:#10b981"></i><span data-i="m_orders"></span></div>
+    <a class="mi hide" id="mVideo" target="_blank" rel="noopener"><i class="fas fa-play-circle" style="color:#e11d48"></i><span data-i="m_video"></span></a>
+    <a class="mi hide" id="mSupport" target="_blank" rel="noopener"><i class="fab fa-telegram-plane" style="color:#0088cc"></i><span data-i="m_support"></span></a>
+    <div class="mi" id="mAbout"><i class="fas fa-info-circle" style="color:#64748b"></i><span data-i="m_about"></span></div>
+  </div>
+</aside>
+
+<div class="wrap"><div class="card">
+  <div class="hero">
+    <div class="icon" id="logo"><img src="https://i.pinimg.com/736x/d3/47/8d/d3478dbf8a4947c20518f589fdfc9087.jpg" alt="Kenz Shop"></div>
+    <h2>CERTIFICATE</h2>
+    <p>P12 &amp; Mobileprovision</p>
+  </div>
+  <div class="body">
+    <div class="feat">
+      <div><i class="fas fa-check-circle"></i><span id="f1"></span></div>
+      <div><i class="fas fa-shield-alt"></i><span id="f2"></span></div>
+      <div><i class="fas fa-bolt"></i><span data-i="f3"></span></div>
+    </div>
+    <div class="amt"><span style="font-weight:700" data-i="total"></span><b id="price">$88.00</b></div>
+    <label class="fl">DEVICE UDID</label>
+    <div class="in"><i class="fas fa-mobile-screen-button"></i><input class="input" id="udid" autocomplete="off" autocapitalize="characters" spellcheck="false" data-ph="ph"></div>
+    <div class="term"><small data-i="found"></small><div><span style="color:var(--cyan);font-weight:700">&gt;_</span> <span id="udidShow"></span></div></div>
+    <div class="hint" id="hint"></div>
+    <a class="getudid" id="getUdid" href="#"><i class="fas fa-download"></i><span data-i="get"></span></a>
+    <div class="safari" data-i="safari"></div>
+    <label class="terms"><input type="checkbox" id="terms"><span data-i="terms"></span></label>
+    <button class="btn off" id="next" type="button"><span data-i="next"></span><i class="fas fa-arrow-right"></i></button>
+  </div>
+</div></div>
+
+<!-- Pay modal -->
+<div class="modal" id="payM"><div class="mc">
+  <button class="x" data-close type="button"><i class="fas fa-times"></i></button>
+  <h3 data-i="pay_t"></h3>
+  <p class="s"><span data-i="total"></span>: <b style="color:var(--blue);font-size:20px" id="payAmt"></b></p>
+  <div id="payQ"><div class="loader" id="payLoad"></div><img class="qr hide" id="qr" alt="KHQR">
+    <div class="badge" id="payBadge"></div>
+    <p style="font-size:12px;color:#999;margin-top:14px;line-height:1.5" data-i="pay_note"></p></div>
+  <div id="payP" class="hide"><div class="loader"></div><div class="badge ok" data-i="registering"></div></div>
+  <div id="payE" class="hide"><i class="fas fa-circle-exclamation" style="font-size:46px;color:#f59e0b;margin:6px 0 12px"></i><h3 id="eT"></h3><p class="s" id="eP"></p><button class="btn" data-close type="button" data-i="close"></button></div>
+</div></div>
+
+<!-- Success modal -->
+<div class="modal" id="okM"><div class="mc">
+  <i class="fas fa-check-circle" style="font-size:56px;color:#27ae60;margin-bottom:12px"></i>
+  <h3 data-i="ok_t"></h3>
+  <div class="note hide" id="reused" data-i="reused"></div>
+  <div class="kv" id="okKv"></div>
+  <label class="fl" data-i="pw"></label>
+  <div class="pw"><code id="pwTxt"></code><button id="pwCopy" type="button" data-i="copy"></button></div>
+  <a class="btn" id="dlZip" href="#"></a>
+  <div id="appBox" class="hide"><p class="s" id="appSub" style="margin:14px 0 0"></p><div id="appBtns"></div></div>
+  <button class="btn ghost" data-close type="button" data-i="done"></button>
+</div></div>
+
+<!-- Orders / About -->
+<div class="modal" id="ordM"><div class="mc"><button class="x" data-close type="button"><i class="fas fa-times"></i></button><h3 data-i="m_orders"></h3><div id="ordList" style="margin-top:10px"></div><p class="s hide" id="ordNone" data-i="none"></p></div></div>
+<div class="modal" id="aboutM"><div class="mc" style="text-align:left"><h3 style="text-align:center;color:var(--blue)" id="aboutT"></h3><p class="s" data-i="about_p" style="line-height:1.8;color:#334155"></p><button class="btn" data-close type="button" data-i="ok"></button></div></div>
+
+<footer class="foot"><p>© <span id="yr"></span> <b id="brand2">Kenz Shop</b></p></footer>
+
+<script>
+/* Page on another domain/port (e.g. Live Server)?  API_BASE = "http://127.0.0.1:8000"  (same server: leave "") */
+const API_BASE = "https://api.irratopup.store";
+/* Video tutorial link (YouTube, TikTok, Telegram post...). Shown in the menu only after a successful payment. */
+const VIDEO_URL = "https://t.me/+632hQWfCBjtjMmY1";
+/* LOGO: paste your image link here, e.g. "https://i.imgur.com/xxxx.png" (empty = use backend logo, or the letter K) */
+const LOGO_URL = "https://i.pinimg.com/736x/d3/47/8d/d3478dbf8a4947c20518f589fdfc9087.jpg";
+/* "Get UDID" button. On Vercel the profile comes from /api/get-profile. Set "" to use the Python backend profile instead. */
+const PROFILE_URL = "/api/get-profile";
+
+const T = {
+km:{f1:"មានសុពលភាព 1 ឆ្នាំ",f2:"ធានារយៈពេល {d} ថ្ងៃ",f3:"ទទួលបានភ្លាមៗលើគេហទំព័រ",total:"តម្លៃសរុប",ph:"បិទភ្ជាប់ UDID នៅទីនេះ...",found:"UDID ត្រូវបានរកឃើញ",wait:"កំពុងរង់ចាំការបញ្ចូល...",
+ get:"ចុចទីនេះដើម្បីយក UDID",safari:"",terms:"ខ្ញុំសូមបញ្ជាក់ថា UDID នេះពិតជាត្រឹមត្រូវ និងយល់ព្រមតាមលក្ខខណ្ឌ។",next:"បន្តទៅការបង់ប្រាក់",
+ h_new:"UDID នេះមិនទាន់មាន Certificate ទេ — នឹងចុះឈ្មោះថ្មីដោយស្វ័យប្រវត្តិក្រោយបង់ប្រាក់។",h_active:"UDID នេះមាន Certificate ស្រាប់ហើយ — ក្រោយបង់ប្រាក់ នឹងផ្តល់ Certificate ចាស់ ហើយមិនចុះឈ្មោះថ្មីទេ។",h_proc:"UDID នេះកំពុងរៀបចំ Certificate។ សូមរង់ចាំបន្តិច។",h_exp:"Certificate ចាស់ផុតកំណត់ហើយ — នឹងចុះឈ្មោះថ្មីក្រោយបង់ប្រាក់។",
+ pay_t:"ស្កេនដើម្បីបង់ប្រាក់",paying:"កំពុងបង្កើត KHQR...",scan:"ស្កេនដើម្បីបង់ប្រាក់ · ផុតក្នុង {t}",paid_check:"ខ្ញុំបានបង់ប្រាក់រួចហើយ",pay_note:"ស្កេន QR ជាមួយកម្មវិធីធនាគារ។ ប្រព័ន្ធត្រួតពិនិត្យដោយស្វ័យប្រវត្តិ។",
+ registering:"បានទទួលការបង់ប្រាក់ ✓ កំពុងចុះឈ្មោះ UDID...",ok_t:"ការបង់ប្រាក់ជោគជ័យ!",reused:"UDID នេះមាន Certificate ស្រាប់ — យើងផ្តល់ Certificate ចាស់ជូនអ្នក ហើយមិនបានចុះឈ្មោះថ្មីទេ។",
+ reg:"ចុះឈ្មោះនៅ",war:"ការធានានៅសល់",pw:"លេខសម្ងាត់ P12",copy:"ចម្លង",copied:"បានចម្លង ✓",dlzip:"ទាញយក Certificate (.zip)",done:"រួចរាល់",app_t:"កំពុង Sign កម្មវិធីជាមួយ Certificate របស់អ្នក... អាចចំណាយពេលរហូតដល់ ១ នាទី។",app_ok:"ចុចដើម្បីដំឡើងកម្មវិធី (បើកក្នុង Safari) · Link មានសុពលភាព {h} ម៉ោង",install:"ដំឡើង {n}",
+ m_orders:"Certificate របស់ខ្ញុំ",m_video:"វីដេអូណែនាំ",m_support:"ទាក់ទង Admin",m_about:"អំពីយើង",none:"មិនទាន់មានការបញ្ជាទិញ។",open:"បើក",ok:"យល់ព្រម",close:"បិទ",
+ about_p:"យើងផ្តល់សេវា iOS Certificate (P12 & Mobileprovision) គុណភាពខ្ពស់ ដើម្បី Sign កម្មវិធី .ipa លើ iPhone/iPad ដោយមិនចាំបាច់ Jailbreak។",
+ e_exp:"ការបង់ប្រាក់ផុតកំណត់",e_exp_p:"QR ផុតពេល ហើយគ្មានការកាត់ប្រាក់ទេ។",e_fail:"យើងកំពុងដោះស្រាយ",e_fail_p:"ការបង់ប្រាក់បានមកដល់ ប៉ុន្តែត្រូវពិនិត្យដោយដៃ។ សូមទាក់ទង Admin ជាមួយលេខ {r}។ អ្នកនឹងមិនត្រូវកាត់ប្រាក់ពីរដងទេ។",e_can:"បានបោះបង់",e_can_p:"គ្មានការកាត់ប្រាក់ទេ។",
+ err:{invalid_udid:"UDID មិនត្រឹមត្រូវ។",unavailable:"ហាងមិនអាចប្រើបានបណ្ដោះអាសន្ន។ សូមព្យាយាមម្តងទៀត។",rate_limited:"ព្យាយាមច្រើនពេក។ សូមរង់ចាំបន្តិច។",network:"មិនអាចភ្ជាប់ទៅ Server បានទេ។",expired:"Link ផុតកំណត់។ ចុច «យក UDID» ម្តងទៀត។",bad:"មិនអាចអាន UDID បានទេ។ សូមព្យាយាមម្តងទៀត។"},
+ st:{pending:"រង់ចាំបង់ប្រាក់",processing:"កំពុងរៀបចំ",registered:"រួចរាល់",delivered:"រួចរាល់",expired:"ផុតកំណត់",cancelled:"បានបោះបង់",failed_paid:"ត្រូវការជំនួយ"}},
+en:{f1:"Valid for 1 Year",f2:"{d}-day warranty",f3:"Instant delivery on this website",total:"Total",ph:"Paste UDID here...",found:"UDID FOUND",wait:"Waiting for input...",
+ get:"Tap here to get your UDID",safari:"",terms:"I confirm this UDID is correct and I agree to the terms.",next:"Continue to payment",
+ h_new:"No certificate for this UDID yet — it will be registered automatically after payment.",h_active:"This UDID already has a certificate — after payment you get the existing one and nothing new is registered.",h_proc:"A certificate for this UDID is being prepared. Please wait a moment.",h_exp:"The old certificate expired — a new one will be registered after payment.",
+ pay_t:"Scan to pay",paying:"Generating KHQR...",scan:"Scan to pay · expires in {t}",paid_check:"I’ve already paid",pay_note:"Scan the QR with your banking app. This is checked automatically.",
+ registering:"Payment received ✓ Registering your UDID...",ok_t:"Payment successful!",reused:"This UDID already had a certificate — we gave you the existing one and did not register a new one.",
+ reg:"Registered",war:"Warranty left",pw:"P12 password",copy:"Copy",copied:"Copied ✓",dlzip:"Download certificate (.zip)",done:"Done",app_t:"Signing the app with your certificate... this can take up to a minute.",app_ok:"Tap to install the app (opens in Safari) · link valid {h} hours",install:"Install {n}",
+ m_orders:"My certificates",m_video:"Video tutorial",m_support:"Contact admin",m_about:"About us",none:"No orders yet.",open:"Open",ok:"OK",close:"Close",
+ about_p:"We sell iOS certificates (P12 & Mobileprovision) so you can sign .ipa apps on your iPhone or iPad without a jailbreak.",
+ e_exp:"Payment expired",e_exp_p:"The QR timed out and nothing was charged.",e_fail:"We’re on it",e_fail_p:"Your payment arrived but needs a manual check. Contact admin with order {r}. You will not be charged twice.",e_can:"Cancelled",e_can_p:"Nothing was charged.",
+ err:{invalid_udid:"That UDID is not valid.",unavailable:"The shop is temporarily unavailable. Please try again.",rate_limited:"Too many tries. Please wait a moment.",network:"Can’t reach the server.",expired:"This link expired. Tap Get UDID again.",bad:"We couldn’t read a UDID. Please try again."},
+ st:{pending:"Waiting for payment",processing:"Preparing",registered:"Ready",delivered:"Ready",expired:"Expired",cancelled:"Cancelled",failed_paid:"Needs support"}}
+};
+const $ = id => document.getElementById(id);
+const store = {get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let lang = store.get("kz_lang","km"), CFG = {brand:"Kenz Shop",price:"5.00",warranty_days:60,validity_days:30,video_url:"",support_url:"",logo_url:"",app_install:false};
+let cur = null, timers = [], endAt = 0, udidState = null;
+const t = (k,v) => { let s = T[lang][k] ?? T.en[k] ?? k; if(v) for(const x in v) s = s.replaceAll("{"+x+"}", v[x]); return s; };
+const clientId = (() => { let c = store.get("kz_client",""); if(!c){ c = (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2)+Date.now()).replace(/-/g,""); store.set("kz_client",c); } return c; })();
+
+async function api(path, opts = {}, token){
+  const h = {"Content-Type":"application/json"}; if(token) h["X-Order-Token"] = token;
+  /* the free Render server sleeps: retry a few times while it wakes up */
+  let r;
+  for(let n = 0; ; n++){
+    try{ r = await fetch(API_BASE + path, {...opts, headers:h}); }
+    catch(e){ if(n >= 3) throw {error:"network"}; await new Promise(z => setTimeout(z, 3000)); continue; }
+    if([502,503,504].includes(r.status) && n < 3){ await new Promise(z => setTimeout(z, 3000)); continue; }
+    break;
+  }
+  let d = {}; try{ d = await r.json(); }catch(e){}
+  if(!r.ok || d.ok === false) throw {error: d.error || "http_"+r.status, data:d};
+  return d;
+}
+const errText = e => T[lang].err[e.error] || T.en.err[e.error] || T[lang].err.unavailable;
+const fmtDate = i => { const d = new Date(i); return isNaN(d) ? "—" : d.toLocaleString(lang === "km" ? "km-KH" : undefined, {dateStyle:"medium", timeStyle:"short"}); };
+const fmtDays = s => Math.floor(s/86400) + "d " + Math.floor(s%86400/3600) + "h";
+const clear = () => { timers.forEach(clearTimeout); timers = []; };
+const modal = (id, on = true) => $(id).classList.toggle("on", on);
+function closeAll(){ clear(); cur = null; document.querySelectorAll(".modal").forEach(m => m.classList.remove("on")); }
+document.querySelectorAll("[data-close]").forEach(b => b.onclick = closeAll);
+const menu = on => { $("side").classList.toggle("on", on); $("ovl").classList.toggle("on", on); };
+$("menuBtn").onclick = () => menu(true); $("menuX").onclick = $("ovl").onclick = () => menu(false);
+$("mAbout").onclick = () => { menu(false); modal("aboutM"); };
+$("mOrders").onclick = () => { menu(false); renderOrders(); modal("ordM"); };
+
+function applyLang(){
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-i]").forEach(e => e.textContent = t(e.dataset.i));
+  document.querySelectorAll("[data-ph]").forEach(e => e.placeholder = t(e.dataset.ph));
+  $("langBtn").textContent = lang === "km" ? "English" : "ខ្មែរ";
+  $("f1").textContent = t("f1",{d:CFG.validity_days}); $("f2").textContent = t("f2",{d:CFG.warranty_days});
+  $("price").textContent = "$" + CFG.price; $("brand").textContent = $("brand2").textContent = CFG.brand; document.title = CFG.brand;
+  $("aboutT").textContent = CFG.brand + " Store"; $("payAmt").textContent = "$" + CFG.price;
+  $("dlZip").innerHTML = '<i class="fas fa-file-zipper"></i>'; $("dlZip").append(t("dlzip"));
+  showUdid(); showHint();
+}
+$("langBtn").onclick = () => { lang = lang === "km" ? "en" : "km"; store.set("kz_lang", lang); applyLang(); };
+
+/* ---------- UDID input ---------- */
+const UDID_RE = /^([0-9A-F]{8}-[0-9A-F]{16}|[0-9A-F]{40})$/;
+const norm = s => (s||"").replace(/[\s\u200b\u200c\u200d\ufeff]+/g,"").toUpperCase();
+let chk = 0;
+function showUdid(){ const v = norm($("udid").value), e = $("udidShow"); e.textContent = v.length > 10 ? v : t("wait"); e.style.color = v.length > 10 ? "#00bcd4" : "#64748b"; }
+function showHint(){
+  const h = $("hint"), m = {not_registered:["ok","h_new"], processing:["warn","h_proc"], expired:["ok","h_exp"]}[udidState];
+  h.className = "hint " + (m ? m[0] : ""); h.textContent = m ? t(m[1]) : "";
+}
+function validate(){ $("next").classList.toggle("off", !(UDID_RE.test(norm($("udid").value)) && $("terms").checked && udidState !== "processing")); }
+$("udid").addEventListener("input", () => {
+  const v = norm($("udid").value); showUdid(); udidState = null; showHint(); validate(); clearTimeout(chk);
+  if(!UDID_RE.test(v)) return;
+  chk = setTimeout(async () => {
+    try{ const d = await api("/api/udid/status", {method:"POST", body:JSON.stringify({udid:v})}); if(norm($("udid").value) === v){ udidState = d.state; showHint(); validate(); } }
+    catch(e){ $("hint").className = "hint bad"; $("hint").textContent = errText(e); }
+  }, 400);
+});
+$("terms").onchange = validate;
+
+/* ---------- order ---------- */
+const orders = () => store.get("kz_orders", []);
+const paidOrders = () => orders().filter(x => x.paid);
+const hasPaid = () => store.get("kz_paid", false) || paidOrders().length > 0;
+const videoUrl = () => CFG.video_url || VIDEO_URL;
+const updateMenu = () => {                       // menu items for buyers only: shown after a successful payment
+  const p = hasPaid(), v = videoUrl();
+  $("mOrders").classList.toggle("hide", !p);
+  $("mVideo").classList.toggle("hide", !(p && v)); if(v) $("mVideo").href = v;
+};
+function saveOrder(o){ const l = orders().filter(x => x.reference !== o.reference); l.unshift({reference:o.reference, token:o.access_token || o.token, udid:o.udid}); store.set("kz_orders", l.slice(0,20)); }
+function renderOrders(){
+  const l = paidOrders(), box = $("ordList"); box.innerHTML = ""; $("ordNone").classList.toggle("hide", l.length > 0);
+  l.forEach(o => { const r = document.createElement("div"); r.className = "ord"; const a = document.createElement("div"), b = document.createElement("b"), s = document.createElement("small");
+    b.textContent = o.reference; s.textContent = o.udid; a.append(b, s); const e = document.createElement("em"); e.textContent = t("open") + " →"; r.append(a, e);
+    r.onclick = () => { closeAll(); watch(o.reference, o.token); }; box.appendChild(r); });
+}
+$("next").onclick = async () => {
+  const u = norm($("udid").value); if($("next").classList.contains("off")) return;
+  $("next").classList.add("off"); view("load");
+  try{
+    const d = await api("/api/orders", {method:"POST", body:JSON.stringify({udid:u, client_id:clientId})});
+    saveOrder(d.order); await watch(d.order.reference, d.order.access_token);
+  }catch(e){
+    const own = e.error === "already_owned" && orders().find(x => x.reference === (e.data||{}).reference);
+    if(own) await watch(own.reference, own.token); else { problem(errText(e), ""); }
+  }
+  validate();
+};
+function view(v){   // inside the pay modal: load | qr | prep | err
+  modal("okM", false); modal("payM", true);
+  $("payQ").classList.toggle("hide", !["load","qr"].includes(v)); $("payP").classList.toggle("hide", v !== "prep"); $("payE").classList.toggle("hide", v !== "err");
+  $("payLoad").classList.toggle("hide", v !== "load"); $("qr").classList.toggle("hide", v !== "qr");
+  $("payBadge").classList.toggle("hide", v === "load");
+  if(v === "load") $("payBadge").textContent = t("paying");
+}
+function problem(title, text){ clear(); view("err"); $("eT").textContent = title; $("eP").textContent = text; }
+
+async function watch(ref, token){ clear(); cur = {reference:ref, token, last:null}; view("load"); await poll(); }
+async function poll(){
+  const c = cur; if(!c) return; let o;
+  try{ o = (await api("/api/orders/" + c.reference, {}, c.token)).order; }
+  catch(e){ if(e.error === "not_found"){ store.set("kz_orders", orders().filter(x => x.reference !== c.reference)); return problem(errText(e), ""); } timers.push(setTimeout(poll, 4000)); return; }
+  if(cur !== c) return;
+  if(o.status === "pending"){
+    if(c.last !== "pending"){ c.last = "pending"; view("qr"); $("qr").src = o.qr || ""; $("payAmt").textContent = "$" + o.amount; endAt = Date.now() + o.expires_in*1000; tick(); }
+    timers.push(setTimeout(poll, 3000)); return;
+  }
+  c.last = o.status;
+  if(o.status === "processing"){ view("prep"); timers.push(setTimeout(poll, 3000)); }
+  else if(o.ready) showDone(o);
+  else if(o.status === "expired") problem(t("e_exp"), t("e_exp_p"));
+  else if(o.status === "cancelled") problem(t("e_can"), t("e_can_p"));
+  else if(o.status === "failed_paid") problem(t("e_fail"), t("e_fail_p",{r:o.reference}));
+}
+function tick(){
+  if(!cur || cur.last !== "pending") return; const s = Math.max(0, Math.ceil((endAt - Date.now())/1000));
+  $("payBadge").textContent = t("scan",{t: Math.floor(s/60) + ":" + String(s%60).padStart(2,"0")}); setTimeout(tick, 1000);
+}
+
+/* ---------- success ---------- */
+async function showDone(o){
+  const c = cur; let d;
+  try{ d = await api("/api/orders/" + o.reference + "/certificate", {}, c.token); }
+  catch(e){ if(e.error === "not_ready"){ view("prep"); timers.push(setTimeout(() => { c.last = null; poll(); }, 4000)); } else problem(errText(e), ""); return; }
+  modal("payM", false); modal("okM", true);
+  store.set("kz_orders", orders().map(x => x.reference === o.reference ? {...x, paid:true} : x)); store.set("kz_paid", true); updateMenu();   // payment succeeded
+  const kv = $("okKv"); kv.innerHTML = "";
+  [["UDID", d.udid], [t("reg"), d.registered_at ? fmtDate(d.registered_at) : "—"], [t("war"), fmtDays(d.warranty_seconds)]].forEach(([k,v]) => { const a = document.createElement("span"), b = document.createElement("span"); a.textContent = k; b.textContent = v; kv.append(a,b); });
+  $("pwTxt").textContent = d.password;
+  const q = "?token=" + encodeURIComponent(c.token);
+  $("dlZip").href = API_BASE + "/api/orders/" + o.reference + "/files/zip" + q;
+  $("appBox").classList.add("hide"); $("appBtns").innerHTML = "";
+  if(CFG.app_install) pollApp(o.reference, c);
+}
+async function pollApp(ref, c){          // signed app install link(s), made automatically after payment
+  let d; try{ d = await api("/api/orders/" + ref + "/install", {}, c.token); }catch(e){ return; }
+  if(cur !== c) return;
+  if(d.state === "off" || d.state === "error") return $("appBox").classList.add("hide");
+  $("appBox").classList.remove("hide");
+  if(d.state === "done"){ $("appSub").textContent = t("app_ok",{h:d.ttl_hours}); $("appBtns").innerHTML = "";
+    d.apps.forEach(a => { const l = document.createElement("a"); l.className = "btn green"; l.href = a.url; l.target = "_blank"; l.rel = "noopener"; l.textContent = "📲 " + t("install",{n:a.name}); $("appBtns").appendChild(l); }); return; }
+  $("appSub").textContent = t("app_t"); timers.push(setTimeout(() => pollApp(ref, c), 4000));
+}
+$("pwCopy").onclick = async function(){ const x = $("pwTxt").textContent; try{ await navigator.clipboard.writeText(x); }catch(e){ const r = document.createRange(); r.selectNode($("pwTxt")); getSelection().removeAllRanges(); getSelection().addRange(r); }
+  this.textContent = t("copied"); setTimeout(() => this.textContent = t("copy"), 1800); };
+/* ---------- start ---------- */
+async function init(){
+  $("yr").textContent = new Date().getFullYear(); $("getUdid").href = PROFILE_URL || (API_BASE + "/udid/profile.mobileconfig");
+  applyLang(); updateMenu();   // show texts right away, even while the server is waking up
+  try{ CFG = Object.assign(CFG, await api("/api/config")); }catch(e){}
+  updateMenu();
+  if(CFG.support_url){ $("mSupport").href = CFG.support_url; $("mSupport").classList.remove("hide"); }
+  const lu = LOGO_URL || CFG.logo_url;
+  if(lu){ const i = document.createElement("img"); i.src = lu; i.alt = CFG.brand || ""; i.onerror = () => { i.remove(); $("logo").textContent = (CFG.brand || "K")[0].toUpperCase(); }; $("logo").textContent = ""; $("logo").appendChild(i); }
+  else $("logo").textContent = (CFG.brand || "K")[0].toUpperCase();
+  applyLang();
+  const qs = new URLSearchParams(location.search), tok = qs.get("t"), pre = norm(qs.get("udid") || "");
+  if(pre){ history.replaceState(null, "", location.pathname);       // iPhone came back from /api/enroll with ?udid=
+    if(UDID_RE.test(pre)){ $("udid").value = pre; $("udid").dispatchEvent(new Event("input")); }
+    else { $("hint").className = "hint bad"; $("hint").textContent = T[lang].err.bad; }
+  } else if(tok){ history.replaceState(null, "", location.pathname);
+    if(tok === "bad") { $("hint").className = "hint bad"; $("hint").textContent = T[lang].err.bad; }
+    else try{ const d = await api("/api/udid/token/" + encodeURIComponent(tok)); $("udid").value = d.udid; $("udid").dispatchEvent(new Event("input")); }
+    catch(e){ $("hint").className = "hint bad"; $("hint").textContent = errText(e); } }
+}
+init();
+</script>
+</body>
+</html>
