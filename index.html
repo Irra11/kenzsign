@@ -193,7 +193,7 @@ en:{f1:"Valid for 1 Year",f2:"{d}-day warranty",f3:"Instant delivery on this web
 };
 const $ = id => document.getElementById(id);
 const store = {get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-let lang = store.get("kz_lang","km"), CFG = {brand:"Kenz Shop",price:"5.00",warranty_days:60,validity_days:30,video_url:"",support_url:"",logo_url:"",app_install:false};
+let lang = store.get("kz_lang","km"), CFG = {brand:"Kenz Shop",price:"8.00",warranty_days:60,validity_days:30,video_url:"",support_url:"",logo_url:"",app_install:false};
 let cur = null, timers = [], endAt = 0, udidState = null;
 const t = (k,v) => { let s = T[lang][k] ?? T.en[k] ?? k; if(v) for(const x in v) s = s.replaceAll("{"+x+"}", v[x]); return s; };
 const clientId = (() => { let c = store.get("kz_client",""); if(!c){ c = (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2)+Date.now()).replace(/-/g,""); store.set("kz_client",c); } return c; })();
