@@ -18,7 +18,7 @@ export default function handler(req, res) {
       const udid = match[1];
 
       // 🔴 CHANGE THIS to your real Vercel domain
-      const FRONTEND_URL = "https://kenzsign.vercel.app/";
+      const FRONTEND_URL = "https://www.kenzsign.shop/";
 
       res.writeHead(301, {
         Location: `${FRONTEND_URL}?udid=${udid}`,
